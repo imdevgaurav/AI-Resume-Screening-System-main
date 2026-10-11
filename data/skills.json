@@ -1,0 +1,59 @@
+{
+  "programming_languages": [
+    "python",
+    "java",
+    "javascript",
+    "typescript",
+    "c++",
+    "c#",
+    "go",
+    "ruby",
+    "php",
+    "sql",
+    "html",
+    "css"
+  ],
+  "frameworks": [
+    "flask",
+    "django",
+    "fastapi",
+    "react",
+    "node.js",
+    "spring boot",
+    "scikit-learn",
+    "tensorflow",
+    "pytorch",
+    "pandas",
+    "numpy",
+    "spacy",
+    "nltk"
+  ],
+  "databases": [
+    "postgresql",
+    "mysql",
+    "sqlite",
+    "mongodb",
+    "redis"
+  ],
+  "cloud_devops": [
+    "aws",
+    "azure",
+    "gcp",
+    "docker",
+    "kubernetes",
+    "git",
+    "github actions",
+    "ci/cd"
+  ],
+  "tools_concepts": [
+    "rest api",
+    "machine learning",
+    "nlp",
+    "data analysis",
+    "oop",
+    "agile",
+    "microservices",
+    "unit testing",
+    "pytest"
+  ]
+}

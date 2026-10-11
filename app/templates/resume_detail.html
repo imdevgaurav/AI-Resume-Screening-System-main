@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Candidate | {{ resume.candidate_name }}{% endblock %}
+
+{% block content %}
+<section class="panel">
+    <div class="section-head">
+        <div>
+            <p class="eyebrow">Candidate Detail</p>
+            <h2>{{ resume.candidate_name }}</h2>
+        </div>
+        <a href="{{ url_for('main.dashboard') }}">Back to dashboard</a>
+    </div>
+    <p class="muted">{{ resume.original_filename }}</p>
+    <div class="tag-row">
+        {% for skill in resume.extracted_skills %}
+            <span class="tag">{{ skill }}</span>
+        {% else %}
+            <span class="muted">No skills extracted</span>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="grid-two">
+    <article class="panel">
+        <h3>Top Keywords</h3>
+        <div class="tag-row">
+            {% for keyword in resume.extracted_keywords %}
+                <span class="tag">{{ keyword }}</span>
+            {% else %}
+                <span class="muted">No keywords extracted</span>
+            {% endfor %}
+        </div>
+    </article>
+
+    <article class="panel">
+        <h3>Screening History</h3>
+        {% for result in results %}
+            <div class="history-item">
+                <strong>{{ result.job_description.title }}</strong>
+                <span>Rank #{{ result.rank }}</span>
+                <span>{{ "%.1f"|format(result.final_score * 100) }}%</span>
+            </div>
+        {% else %}
+            <p class="muted">This resume has not been screened yet.</p>
+        {% endfor %}
+    </article>
+</section>
+
+<section class="panel">
+    <h3>Extracted Resume Text</h3>
+    <pre class="resume-text">{{ resume.raw_text }}</pre>
+</section>
+{% endblock %}

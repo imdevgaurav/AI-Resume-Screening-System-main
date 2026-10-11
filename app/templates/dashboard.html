@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | AI Resume Screening System{% endblock %}
+
+{% block content %}
+<section class="grid-two">
+    <article class="panel">
+        <h2>Create Job Description</h2>
+        <form method="post" action="{{ url_for('main.create_job') }}" class="stack">
+            <label>
+                <span>Job Title</span>
+                <input type="text" name="title" placeholder="Senior Python Developer" required>
+            </label>
+            <label>
+                <span>Job Description</span>
+                <textarea name="description" rows="10" placeholder="Paste the job description here..." required></textarea>
+            </label>
+            <button type="submit">Save Job Description</button>
+        </form>
+    </article>
+
+    <article class="panel">
+        <h2>Upload Resumes</h2>
+        <form method="post" action="{{ url_for('main.upload_resumes') }}" enctype="multipart/form-data" class="stack">
+            <label>
+                <span>Resume Files</span>
+                <input type="file" name="resumes" accept=".pdf,.txt" multiple required>
+            </label>
+            <button type="submit">Upload Resumes</button>
+        </form>
+
+        <div class="mini-list">
+            <h3>Stored Resumes</h3>
+            {% if resumes %}
+                {% for resume in resumes %}
+                    <a href="{{ url_for('main.resume_detail', resume_id=resume.id) }}" class="mini-item">
+                        <strong>{{ resume.candidate_name }}</strong>
+                        <span>{{ resume.original_filename }}</span>
+                    </a>
+                {% endfor %}
+            {% else %}
+                <p class="muted">No resumes uploaded yet.</p>
+            {% endif %}
+        </div>
+    </article>
+</section>
+
+<section class="grid-two">
+    <article class="panel">
+        <h2>Run Screening</h2>
+        <form method="post" action="{{ url_for('main.run_screening') }}" class="stack">
+            <label>
+                <span>Select Job Description</span>
+                <select name="job_id" required>
+                    <option value="">Choose a job</option>
+                    {% for job in jobs %}
+                        <option value="{{ job.id }}">{{ job.title }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <button type="submit">Screen Candidates</button>
+        </form>
+    </article>
+
+    <article class="panel">
+        <h2>Latest Job Snapshot</h2>
+        {% if latest_job %}
+            <div class="snapshot">
+                <h3>{{ latest_job.title }}</h3>
+                <p>{{ latest_job.raw_text[:240] }}{% if latest_job.raw_text|length > 240 %}...{% endif %}</p>
+                <div class="tag-row">
+                    {% for skill in latest_job.extracted_skills %}
+                        <span class="tag">{{ skill }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+        {% else %}
+            <p class="muted">Create a job description to start screening.</p>
+        {% endif %}
+    </article>
+</section>
+
+<section class="panel">
+    <div class="section-head">
+        <h2>Latest Results</h2>
+        {% if latest_job and latest_results %}
+            <a href="{{ url_for('main.screening_results_page', job_id=latest_job.id) }}">Open full ranking</a>
+        {% endif %}
+    </div>
+    {% if latest_results %}
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Candidate</th>
+                        <th>Final Score</th>
+                        <th>Skill Match</th>
+                        <th>Text Similarity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in latest_results %}
+                        <tr>
+                            <td>#{{ result.rank }}</td>
+                            <td>
+                                <a href="{{ url_for('main.resume_detail', resume_id=result.resume.id) }}">
+                                    {{ result.resume.candidate_name }}
+                                </a>
+                            </td>
+                            <td>{{ "%.2f"|format(result.final_score * 100) }}%</td>
+                            <td>{{ "%.2f"|format(result.skill_overlap_score * 100) }}%</td>
+                            <td>{{ "%.2f"|format(result.text_similarity_score * 100) }}%</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p class="muted">No screening results yet.</p>
+    {% endif %}
+</section>
+{% endblock %}

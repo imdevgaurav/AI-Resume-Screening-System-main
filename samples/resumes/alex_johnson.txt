@@ -1,0 +1,7 @@
+Alex Johnson
+Python Developer
+
+Built Flask applications and REST APIs for hiring workflows.
+Worked with PostgreSQL, SQLAlchemy, scikit-learn, spaCy, and pandas.
+Implemented NLP pipelines for keyword extraction, resume parsing, and similarity scoring.
+Used Git, Docker, and pytest in daily development.

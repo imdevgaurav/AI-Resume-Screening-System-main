@@ -1,0 +1,6 @@
+Sam Lee
+Frontend Developer
+
+Created responsive interfaces with React, JavaScript, HTML, and CSS.
+Integrated APIs and worked with design systems.
+Some exposure to Python scripts and SQLite for small internal tools.

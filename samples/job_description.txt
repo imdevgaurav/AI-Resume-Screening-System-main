@@ -1,0 +1,6 @@
+Senior Python NLP Engineer
+
+We are looking for a Python engineer to build resume screening workflows using Flask,
+PostgreSQL, and NLP tooling. The ideal candidate has experience with spaCy,
+scikit-learn, REST API development, SQL, machine learning, and text processing.
+Experience with Docker, Git, and unit testing is a plus.
