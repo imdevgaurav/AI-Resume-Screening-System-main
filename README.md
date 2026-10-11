@@ -1,6 +1,6 @@
 # AI Resume Screening System
 
-AI Resume Screening System is a portfolio-ready Flask application that parses resumes, extracts skills and keywords with NLP, compares them to a job description, and ranks candidates using a hybrid scoring approach.
+AI Resume Screening System is a Flask application that parses resumes, extracts skills and keywords with NLP, compares them to a job description, and ranks candidates using a hybrid scoring approach.
 
 ## Features
 - Upload one job description and multiple resumes
